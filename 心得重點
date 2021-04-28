@@ -1,0 +1,129 @@
+
+
+
+現在還沒有最高分紀錄的功能。
+
+- 如何製作最高分紀錄的功能？  
+  去參考老師的寫法。
+
+- 為什麼我的最高紀錄變成了 undefined ? 
+  檢查瀏覽器 console 的錯誤訊息。
+
+- 出現了 file not found error 如何解決？ 
+  檢查老師的程式碼有沒有在一開始做檢查有無 localStorage 的判斷式。
+
+- 因為在原版中的圖片是通用樣式，所以程式碼比較簡單，但是我現在的設計不是通用樣式，每個格子都有自己的圖片，我要如何設計這樣的程式碼呢？ 
+  可以先將每格背景圖片設定好，然後在遊戲剛開始時更換背景，等到事件被觸發後，再移除背景樣式。
+  如果把圖片的 url() 放在 Javascript 之中，這樣會失去代入通用樣式的優勢，而且無法平均程式碼在 body & Javascript 之間的壓力，所以我覺得使用第一種方式較好。 
+  
+現在先將鯊皇的樣式做好再去思考變換不同 vtuber 的想法。 
+
+- 要如何設定方格背景的圖片大小？
+  感覺因為現在還沒有學到彈性盒（感覺像是一種可以根據網頁大小變化而反應的技術之一，附屬在 RWD（響應式網頁）之下的一種技術），所以所有東西都設定成固定大小最好。
+
+  background-size: auto / contain / cover ; 
+  background-position: left / center / right / x＿adjust / bottom / top / y＿adjust ; 
+  * 如果 background-position 裡面只有放一個值且沒有特別指定，那麼這個值會調整到的是 x value。 
+
+- 現在已經把圖片都放到方格裡面了，現在要怎麼在 Javascript 中把圖片做動態設定？
+  先在網頁剛開始時，把所有方格內的背景都換成白底。 
+  在遊戲過程中，當玩家擊中方格時換回原背景。 
+
+- 為什麼在 Javascript 前段加設定背景的程式碼沒有作用，而且 console.log 都已經回報 style 樣式是對的了？ 
+  因為自己在一個方匡中同時放入兩個背景樣式
+
+- 如何清除一個物件的所有 class 樣式？ 
+  物件.removeAttribute('html 行內設定')
+
+  結果我不能使用「物件.removeAttribute('html 行內設定')」，因為這樣會失去 Gawr Gura 的圖片背景設定。
+
+- 現在問題有點大..，因為一個物件的背景圖片只能有一個，而想要在 Javascript 執行過程中自由拿掉、放入 Gawr Gura 背景因為 class 名稱會有點問題？ 
+  我覺得可以把 class 樣式名稱訂成序號形式，這樣在後面或許可以利用 ${} 代入 class。 
+
+- 為什麼我的物件樣式只有 1.3.5.7.9 項被移除，2.4.6.8 沒有？ 
+  可能是因為我移除樣式以後沒有把 squares 樣式加回來。
+
+- 如何取得物件的 index？
+  老師居然使用了一個把 for of 改成 for in 迴圈的招數就解決了我這個 index 的問題... 
+
+ 
+
+ 
+
+
+！因為現在要做的方格背景圖片每項都只對應單一圖片，但是老師教的新增 CSS 樣式只有 class 的，我想問說新增樣式有 id 的嗎？ 
+！id="square9 gawr-gura-ah" 這樣寫 id 是不行的嗎？我覺得或許可以嘗試 CSS 外部樣式連結的方式？
+！id 是 １對 1 的嗎？ 
+
+！現在不知道為什麼自己在 div 標籤放背景圖片無法顯示，還是說一定要用 <image>，那我要怎麼在 Javascript 過程中更改圖片？
+！感覺把所有圖片都定義成一個 css 樣式太攏長了，應該有更好的寫法？ 
+
+！現在不確定如何使用 localStorage？ 
+  暫時先跳過，先帶圖。 
+
+！把這份作業的心得重點集合到 Javascript / CSS 重點集大成上面 
+
+！看不懂下面這段是做什麼用的 
+document.onkeydown = (event) => {
+      if (!isNaN(event.key) && event.code.includes('Numpad')) {
+        const target = document.getElementById(`hole${event.key}`)
+        if (target !== null && target.classList.contains('red')) {
+          target.classList.replace('red', 'blue')
+          score++
+          textScore.innerText = score
+        }
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+抓取元素的兩個基本方式: 
+- 透過 id // document.getElementByID(' idName ')
+- 透過 class // document.getElementsByClassName(' className ')
+
+
+元素名稱.classList.contains('樣式名稱') 可以檢查樣式 
+元素名稱.classList.add('樣式名稱') 可以增加樣式
+元素名稱.classList.remove('樣式名稱') 可以去除樣式
+元素名稱.classList.replace('樣式名稱', '樣式名稱') 可以取代樣式
+
+元素名稱.innerText = ? 可以改變元素內的文字內容 
+
+
+button 沒有結尾標籤，基礎型態: <input type="button" value=" 按鈕文字 "> 
+
+
+不確定要如何設定系列圖片，怎麼樣可以透過選項清單更改後面程式抓取的圖片? 
+初步想法: 可能可以利用 JSON 
+
+
+const audio = new Audio() // 宣告 audio 為音訊常數 
+audio.src = './rihai.mp3' // 設定 Javascript 執行音訊檔來源 
+
+
+
+const recordStorage = JSON.parse(localStorage.getItem('wam')) // 宣告紀錄最高分的本機儲存空間 
+
+localStorage.setItem('wam', JSON.stringify(recordScore)) // 更新最高分紀錄的本機儲存空間 
+
+
+
+
+
+
+2021/04/13 16:30 課程內容複習實作到只差下面這塊: 
