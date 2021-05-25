@@ -10,6 +10,13 @@
 </head>
 
 <body>
+    <audio controls loop hidden id="audio1">
+        <source src="./Gura/Story_Gura.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+    <source src="./Ame/Story_Ame.mp3" type="audio/mpeg">
+        
     <div id="container">
         <span>[請選擇喜好的主題]</span>
         <input type="radio" name="theme" value="gura-" checked> Gawr Gura 
@@ -49,7 +56,7 @@
         <br>
         <br>
 
-        你還剩 <span id="timeLabel">10</span> 秒
+        你還剩 <span id="timeLabel">30</span> 秒
         <br>
         <br>
         <hr>
@@ -70,11 +77,12 @@
         const textRecordName = document.getElementById('textRecordName')
         const textRecordScore = document.getElementById('textRecordScore')
 
-        const audio = new Audio() // 宣告 audio 為音訊常數 
-        audio.src = './rihai.mp3' // 設定 Javascript 執行音訊檔來源 
+        const audioStory = document.getElementById('audio1')
+        const audioWin = new Audio() // 宣告 audio 為音訊常數 
+        audioWin.src = './rihai.mp3' // 設定 Javascript 執行音訊檔來源 
 
         let score = 0 // 宣告玩家得分的 score 變數
-        let timer = 10 // 宣告倒數計時器的 timer 變數 
+        let timer = 30 // 宣告倒數計時器的 timer 變數 
         let timeInterval = 0 // 宣告時段變換器的 timeInterval 變數 
         let recordScore = { name: '', score: 0 } // 宣告最高分紀錄 JSON
 
@@ -119,7 +127,7 @@
 
                 // 如果分數超越最高分數，則將最高分數取代 
                 if (score > recordScore.score) {
-                    audio.play()
+                    audioWin.play()
                     recordScore.score = score
                     recordScore.name = prompt('你打破最高分紀錄! 請輸入你的名字')
                     if (recordScore.name === null || recordScore.name.length === 0) {
@@ -154,15 +162,34 @@
             // 設定顯示文字 
             score = 0
             playerScore.innerText = score
-            timer = 11
+            timer = 31
             timeLabel.innerText = timer
 
+            // 抓出玩家選擇的主題樣式 
             for(var i = 0, count = radios.length; i < count; i++){
                 if(radios[i].checked){
                     selected = radios[i].value;
+                    console.log(selected)
                     break;
                 }
             }
+
+            // 設定背景故事播放 
+            const timerStory = setInterval(() => {
+                
+                if (selected == 'gura-') {
+                    audioStory.setAttribute("src", "./Gura/Story_Gura.mp3")
+                } else if (selected == 'ame-') {
+                    audioStory.setAttribute("src", "./Ame/Story_Ame.mp3")
+                } else if (selected == 'ina-') {
+                    audioStory.setAttribute("src", "./Ina/Story_Ina.mp3")
+                }
+                
+                audioStory.play().then(() => {
+                    clearInterval(timerStory)
+                }).catch(() => {
+                })
+            }, 100)
 
             // 載入 game function 
             game()
